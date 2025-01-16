@@ -17,12 +17,11 @@ class PesantrenFactory extends Factory
      */
     public function definition(): array
     {
-        $ini = fake()->unique()->name();
+        $ini = fake()->unique()->company();
         $itu = str_replace(' ', '', $ini);
         $itu = strtolower($itu);
         return [
             'name'=>$ini,
-            'kota_id'=>Kota::all()->random()->id,
             'jml_santri'=>fake()->randomDigit(),
             'web'=>$itu . '.com',
             'email'=>$itu . '.gmail.com',

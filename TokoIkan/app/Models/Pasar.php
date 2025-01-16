@@ -14,4 +14,8 @@ class Pasar extends Model
         'name',
         'kota_id',
     ];
+
+    public function kota() {
+        return $this->belongsTo(Kota::class);
+    }
 }

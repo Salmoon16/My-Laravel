@@ -2,11 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Negara;
 use App\Models\Kota;
-use App\Models\Pesantren;
 use App\Models\User;
+use App\Models\Alamat;
+use App\Models\Negara;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Kawasan;
+use App\Models\Pesantren;
+use App\Models\AlamatTable;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,9 +19,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Negara::factory(50)->create();
-        Kota::factory(100)->create();
-        Pesantren::factory(200)->create();
-        User::factory(1000)->create();
+        $negaras = Negara::factory(2)->create();
+
+        foreach ($negaras as $negara) {
+            $kotas = Kota::factory(3)->create(['negara_id'=>$negara->id]);
+            foreach ($kotas as $kota) {
+                $alamats = Alamat::factory(10)->create(['kota_id'=>$kota->id]);
+
+                for ($i = 0; $i < count($alamats); $i++) {
+                Pesantren::factory()->create();
+                Kawasan::factory()->create();
+                User::factory()->create();
+                AlamatTable::factory()->create();
+                }
+            }
+    }
     }
 }
+
+
+
+
