@@ -12,11 +12,22 @@ class Pesantren extends Model
 
     protected $fillable = [
         'name',
-        'kota_id',
         'jml_santri',
         'web',
         'email',
         'phone',
         'address',
     ];
+
+    public function users() {
+        return $this->hasMany(User::class);
+    }
+
+    public function kawasans() {
+        return $this->hasMany(Kawasan::class);
+        }
+
+    public function detail() {
+        return $this->morphOne(AlamatTable::class, 'alamatable');
+    }
 }

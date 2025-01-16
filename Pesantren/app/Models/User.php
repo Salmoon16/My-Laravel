@@ -20,9 +20,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role_name',
         'password',
         'pesantren_id',
-        'kota_id',
     ];
 
     /**
@@ -46,5 +46,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function pesantren() {
+        return $this->belongsTo(Pesantren::class);
+    }
+
+    public function detail() {
+        return $this->morphOne(AlamatTable::class,'alamatable');
     }
 }

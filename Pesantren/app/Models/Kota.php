@@ -14,4 +14,8 @@ class Kota extends Model
         'name',
         'negara_id',
     ];
+
+    public function negara() {
+        return $this->belongsTo(Negara::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Negara extends Model
 {
@@ -13,4 +14,8 @@ class Negara extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function kotas() {
+        return $this->hasMany(Kota::class);
+    }
 }

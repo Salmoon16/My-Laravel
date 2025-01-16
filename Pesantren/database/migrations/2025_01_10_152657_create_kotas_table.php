@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('kotas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('negara_id')->references('id')->on('negaras')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }
