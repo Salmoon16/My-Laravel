@@ -9,7 +9,7 @@ use App\Models\Negara;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Kawasan;
 use App\Models\Pesantren;
-use App\Models\AlamatTable;
+use App\Models\Alamatable;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
                 Pesantren::factory()->create();
                 Kawasan::factory()->create();
                 User::factory()->create();
-                AlamatTable::factory()->create();
+                Alamatable::factory()->create();
                 }
             }
     }

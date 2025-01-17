@@ -27,7 +27,7 @@ class Pesantren extends Model
         return $this->hasMany(Kawasan::class);
         }
 
-    public function detail() {
-        return $this->morphOne(AlamatTable::class, 'alamatable');
+    public function details() {
+        return $this->morphMany(Alamatable::class, 'alamatable');
     }
 }

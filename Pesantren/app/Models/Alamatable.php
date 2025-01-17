@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AlamatTable extends Model
+class Alamatable extends Model
 {
     /** @use HasFactory<\Database\Factories\AlamatTableFactory> */
     use HasFactory;

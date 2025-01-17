@@ -12,7 +12,7 @@ class Alamat extends Model
 
     protected $fillable = [
         'kota_id',
-        'detail',
+        'details',
     ];
 
     public function kota() {

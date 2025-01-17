@@ -52,7 +52,7 @@ class User extends Authenticatable
         return $this->belongsTo(Pesantren::class);
     }
 
-    public function detail() {
-        return $this->morphOne(AlamatTable::class,'alamatable');
+    public function details() {
+        return $this->morphMany(Alamatable::class,'alamatable');
     }
 }
