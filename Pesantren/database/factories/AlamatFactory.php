@@ -19,7 +19,7 @@ class AlamatFactory extends Factory
     {
         return [
             'kota_id'=>Kota::all()->random()->id,
-            'detail'=>fake()->address()
+            'details'=>fake()->address()
         ];
     }
 }

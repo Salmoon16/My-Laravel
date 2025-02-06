@@ -18,4 +18,8 @@ class Kota extends Model
     public function negara() {
         return $this->belongsTo(Negara::class);
     }
+
+    public function alamats() {
+        return $this->hasMany(Alamat::class);
+    }
 }

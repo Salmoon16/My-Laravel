@@ -19,3 +19,5 @@ class Negara extends Model
         return $this->hasMany(Kota::class);
     }
 }
+
+

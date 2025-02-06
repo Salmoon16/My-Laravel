@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php
+=======
+ <?php
+>>>>>>> salmanpunya
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
