@@ -7,7 +7,7 @@ use App\Http\Controllers\UserWebController;
 
 Route::middleware(['auth'])->group( function () {
     Route::get('/home', [HomeController::class, 'tokoName']);
-    Route::get('/', [HomeController::class, 'tokoName']);
-    Route::resource('userWeb', UserWebController::class);
+    Route::get('/', [HomeController::class, 'tokoName'])->name('home');
+    Route::resource('UserWeb', UserWebController::class);
 });
 

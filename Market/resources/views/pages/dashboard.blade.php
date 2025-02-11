@@ -99,11 +99,55 @@
                                             <th scope="row">{{$user->id ?? 'No Data'}}</th>
                                             <td>{{$user->name ?? 'No Data'}}</td>
                                             <td>{{$user->email ?? 'No Data'}}
+                                            <td>
+                                                <form action="/"
+                                                method="POST" class="d-inline ml-1">
+                                                @csrf
+                                                {{-- @method('DELETE') --}}
+                                                <button type="hidden" value="EDIT" name="_method" class="btn btn-sm btn-primary btn-icon"
+                                                data-toggle="tooltip" title="Edit">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            </form>
 
+                                            <form action="{{ route('UserWeb.destroy', $user->id) }}"
+                                                method="POST" class="d-inline ml-1">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="hidden" value="DELETE" name="_method" class="btn btn-sm btn-danger btn-icon"
+                                                data-toggle="tooltip" title="Delete">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                            </td>
                                         </tr>
                                     </tbody>
                                     @endforeach
                                 </table>
+
+                                <nav aria-label="...">
+                                    <ul class="pagination">
+                                        <li class="page-item disabled">
+                                            <a class="page-link"
+                                                href="#"
+                                                tabindex="-1">Previous</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link"
+                                                href="#">1</a></li>
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                                href="#">2 <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link"
+                                                href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                                href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
 
                             </div>
                     </div>
