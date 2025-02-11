@@ -12,8 +12,8 @@ class PabrikController extends Controller
      */
     public function index()
     {
-        $pondok = Pabrik::all();
-        return response()->json($pondok);
+        $pabrik = Pabrik::all();
+        return response()->json($pabrik);
     }
 
     /**
@@ -25,12 +25,12 @@ class PabrikController extends Controller
             'name' => 'required'
         ]);
 
-        $pondok = Pabrik::create([
+        $pabrik = Pabrik::create([
             'name' => $request->name,
         ]);
 
        return response()->json([
-           'message' => 'Data ' . $pondok->name . ' Berhasil Ditambahkan',
+           'message' => 'Data ' . $pabrik->name . ' Berhasil Ditambahkan',
        ]);
     }
 
@@ -39,13 +39,13 @@ class PabrikController extends Controller
      */
     public function show(string $id)
     {
-        $pondok = Pabrik::findOrFail($id);
+        $pabrik = Pabrik::findOrFail($id);
 
-        if (!$pondok) {
-            return response()->json(['message' => 'Pondok not found'], 404);
+        if (!$pabrik) {
+            return response()->json(['message' => 'pabrik not found'], 404);
         }
 
-        return response()->json($pondok);
+        return response()->json($pabrik);
     }
 
     /**
@@ -53,20 +53,20 @@ class PabrikController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $pondok = Pabrik::find($id);
+        $pabrik = Pabrik::find($id);
 
-        if (!$pondok) {
-            return response()->json(['message' => 'Pondok not found'], 404);
+        if (!$pabrik) {
+            return response()->json(['message' => 'pabrik not found'], 404);
         }
 
-        $dataPondok = $request->validate([
+        $dataPabrik = $request->validate([
             'name' => 'required'
         ]);
 
-        $pondok->update($dataPondok);
+        $pabrik->update($dataPabrik);
 
         return response()->json([
-            'message' => 'Data ' . $pondok->name . ' Berhasil Update',
+            'message' => 'Data ' . $pabrik->name . ' Berhasil Update',
         ]);
     }
 
@@ -75,14 +75,14 @@ class PabrikController extends Controller
      */
     public function destroy(string $id)
     {
-        $pondok = Pabrik::findOrFail($id);
+        $pabrik = Pabrik::findOrFail($id);
 
-        if (!$pondok) {
-            return response()->json(['message' => 'Pondok not found'], 404);
+        if (!$pabrik) {
+            return response()->json(['message' => 'pabrik not found'], 404);
         }
 
-        $pondok->delete();
+        $pabrik->delete();
 
-        return response()->json(['message' => $pondok->name .' deleted successfully']);
+        return response()->json(['message' => $pabrik->name .' deleted successfully']);
     }
 }
