@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PrayerServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\PabrikController;
 use App\Http\Controllers\TokoController;
 
 Route::post('login', [AuthController::class, 'login'])->name('api.login');
+
+Route::get('/prayerTimes/{cityName}/{date}', [PrayerServiceController::class, 'index'])->name('api.prayerTimes');
 
 Route::middleware(['auth:sanctum'])->group(function () {
 

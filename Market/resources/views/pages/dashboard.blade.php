@@ -76,9 +76,68 @@
                     </div>
                 </div>
             </div>
+            //cek
+            <div class="container mt-5 col-12">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card shadow-lg border-0">
+                            <div class="card-header bg-primary text-white text-center">
+                                <h3>🕌 Jadwal Sholat - {{ $prayerTimes['cityName']['date'] }} | {{ $prayerTimes['data']['jadwal']['tanggal'] }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered text-center">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th>Sholat</th>
+                                            <th>Waktu</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>🕓 Imsak</td>
+                                            <td>{{ $prayerTimes['data']['jadwal']['imsak'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>🌅 Subuh</td>
+                                            <td>{{ $prayerTimes['data']['jadwal']['subuh'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5>🌞 Terbit</h5></td>
+                                            <td>{{ $prayerTimes['data']['jadwal']['terbit'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>🌤️ Dhuha</td>
+                                            <td>{{ $prayerTimes['data']['jadwal']['dhuha'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>☀️ Dzuhur</td>
+                                            <td>{{ $prayerTimes['data']['jadwal']['dzuhur'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>🌇 Ashar</td>
+                                            <td>{{ $prayerTimes['data']['jadwal']['ashar'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>🌆 Maghrib</td>
+                                            <td>{{ $prayerTimes['data']['jadwal']['maghrib'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>🌙 Isya</td>
+                                            <td>{{ $prayerTimes['data']['jadwal']['isya'] }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer text-center bg-light">
+                                <small class="text-muted">Sumber: API Jadwal Sholat</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            //cek
 
             <div class="row">
-
                 <div class="col-12">
                     <div class="card card-statistic-1">
                             <div class="card-header">
@@ -88,7 +147,7 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#</th>
+                                            <th scope="col">No</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">email</th>
                                         </tr>
@@ -126,6 +185,9 @@
                                     </tbody>
                                     @endforeach
                                 </table>
+                                <div class="float-right mt-3 mb-3 card-footer page-item">
+                                    {{ $data->withQueryString()->links() }}
+                                </div>
 
                                 <nav aria-label="...">
                                     <ul class="pagination">
