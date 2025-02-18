@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Lesson;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,10 +19,10 @@ class AssessmentFactory extends Factory
     public function definition(): array
     {
         return [
-            // 'user_id' => \App\Models\User::factory(),
-            // 'lesson_id' => \App\Models\Lesson::factory(),
-            'score' => fake()->numberBetween(0, 100),
-            'evaluation' => fake()->text(),
+            'user_id' => User::all()->random()->id,
+            'lesson_id' => Lesson::all()->random()->id,
+            'score' => fake()->numberBetween(50, 100),
+            'evaluation' => fake()->optional()->sentence(),
             'date' => fake()->date('Y-m-d'),
         ];
     }

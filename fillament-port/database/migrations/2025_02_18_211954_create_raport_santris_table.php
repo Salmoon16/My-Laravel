@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('assessments', function (Blueprint $table) {
+        Schema::create('raport_santris', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('lesson_id')->constrained('lessons')->onDelete('cascade');
-            $table->integer('score');
-            $table->text('evaluation')->nullable();
-            $table->date('date');
+            $table->foreignId('santri_id')->constrained('users')->onDelete('cascade');
+            $table->string('academic_year');
+            $table->integer('overall_score');
+            $table->text('strengths')->nullable();
+            $table->text('weaknesses')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('assessments');
+        Schema::dropIfExists('raport_santris');
     }
 };

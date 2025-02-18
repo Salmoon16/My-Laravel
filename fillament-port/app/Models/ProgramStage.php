@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Lesson extends Model
+class ProgramStage extends Model
 {
-    /** @use HasFactory<\Database\Factories\LessonFactory> */
+    /** @use HasFactory<\Database\Factories\ProgramStageFactory> */
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'kelas_santri_id',
-        'description'
+        'name' ,
+        'description' ,
+        'start_date' ,
+        'end_date'
     ];
 }

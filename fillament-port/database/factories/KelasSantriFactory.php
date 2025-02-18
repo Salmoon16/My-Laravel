@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class KelasSantriFactory extends Factory
     {
         return [
             'major'=> fake()->name(),
-            'mentor'=> fake()->name(),
+            'mentor_id'=> User::all()->random()->id,
         ];
     }
 }

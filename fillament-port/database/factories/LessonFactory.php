@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\KelasSantri;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +19,8 @@ class LessonFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            // 'class_id'=>fake()
-            'description' => fake()->description()
+            'kelas_santri_id' => KelasSantri::all()->random()->id,
+            'description' => fake()->text(),
         ];
     }
 }
