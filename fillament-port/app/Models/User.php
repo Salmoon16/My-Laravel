@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,9 +20,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+  'name',
         'email',
-        'password',
+        'no_ktp',
+        'nisn',
         'gender',
         'date_of_birth',
         'phone',
@@ -31,8 +33,9 @@ class User extends Authenticatable
         'graduate_date',
         'status_graduate',
         'class_id',
-        'departement_id',
+        'department_id',
         'education_stage_id',
+        'password',
         'role',
     ];
 
@@ -60,7 +63,7 @@ class User extends Authenticatable
     }
 
     public static function generateCustomId($role) {
-        $prefix = strtoupper(substr($role, 0,3));
+        $prefix = strtoupper(substr($role ? 'XX' : $role, 0,3));
         $prefix = str_pad($prefix, 3, 'X');
         $uniqueId = Str::upper(Str::random(15));
 
@@ -71,12 +74,13 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function ($model){
-            if (empty($model->id)) {
-                do {
-                    $id = self::generateCustomId($model->role);
-                } while (self::where('id', $id)->exists());
-                $model->id = $id;
-            }
+            Log::info("$model");
+            // if (empty($model->id)) {
+            //     do {
+            //         $id = self::generateCustomId($model->role);
+            //     } while (self::where('id', $id)->exists());
+            //     $model->id = $id;
+            // }
         });
     }
 }
