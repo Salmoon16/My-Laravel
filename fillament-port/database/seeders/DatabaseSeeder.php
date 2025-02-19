@@ -40,5 +40,7 @@ class DatabaseSeeder extends Seeder
         FinancialRecord::factory(10)->create();
         Attachment::factory(10)->create();
         News::factory(10)->create();
+
+        foreac
     }
 }
