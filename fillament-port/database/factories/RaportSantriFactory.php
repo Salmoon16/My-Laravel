@@ -18,7 +18,6 @@ class RaportSantriFactory extends Factory
     public function definition(): array
     {
         return [
-            'santri_id' => User::all()->random()->id,
             'academic_year' => fake()->year(),
             'overall_score' => fake()->numberBetween(50, 100),
             'strengths' => fake()->paragraph(),

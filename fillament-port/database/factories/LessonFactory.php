@@ -19,7 +19,6 @@ class LessonFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'kelas_santri_id' => KelasSantri::all()->random()->id,
             'description' => fake()->text(),
         ];
     }

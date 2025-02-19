@@ -32,7 +32,7 @@ class User extends Authenticatable
         'entry_date',
         'graduate_date',
         'status_graduate',
-        'class_id',
+        'kelas_santri_id',
         'department_id',
         'education_stage_id',
         'password',

@@ -19,7 +19,6 @@ class KelasSantriFactory extends Factory
     {
         return [
             'major'=> fake()->name(),
-            'mentor_id'=> User::all()->random()->id,
         ];
     }
 }

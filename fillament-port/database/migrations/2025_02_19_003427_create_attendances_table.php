@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->string('santri_id')->nullable();
-            $table->string('activity_id')->nullable();
+            $table->unsignedBigInteger('activity_id')->nullable();
             $table->string('status');
             $table->date('date');
             $table->timestamps();

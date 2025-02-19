@@ -19,8 +19,6 @@ class DepartementFactory extends Factory
     {
         return [
             'name' => fake()->company(),
-            'leader_id' => User::all()->random()->id,
-            'co_leader_id' => User::all()->random()->id,
         ];
     }
 }

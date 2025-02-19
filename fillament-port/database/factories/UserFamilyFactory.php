@@ -28,7 +28,6 @@ class UserFamilyFactory extends Factory
             'mother_job' => fake()->jobTitle(),
             'mother_birth' => fake()->date(),
             'mother_phone' => fake()->phoneNumber(),
-            // 'santri_id' => User::all()->random()->id,
         ];
     }
 }

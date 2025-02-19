@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('entry_date')->nullable();
             $table->string('graduate_date')->nullable();
             $table->string('status_graduate')->nullable();
-            $table->unsignedBigInteger('class_id')->nullable();
+            $table->unsignedBigInteger('kelas_santri_id')->nullable();
             $table->unsignedBigInteger('department_id')->nullable();
             $table->unsignedBigInteger('education_stage_id')->nullable();
             $table->string('password');

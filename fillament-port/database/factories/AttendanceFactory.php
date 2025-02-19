@@ -20,8 +20,6 @@ class AttendanceFactory extends Factory
     public function definition(): array
     {
         return [
-            'santri_id' => Str::random(20),
-            'activity_id' => Str::random(20),
             'status' => fake()->randomElement(['Hadir', 'Tidak Hadir', 'Izin', 'Sakit']),
             'date' => fake()->date(),
         ];

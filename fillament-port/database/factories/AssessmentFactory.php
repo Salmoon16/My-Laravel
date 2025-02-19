@@ -19,8 +19,6 @@ class AssessmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::all()->random()->id,
-            'lesson_id' => Lesson::all()->random()->id,
             'score' => fake()->numberBetween(50, 100),
             'evaluation' => fake()->optional()->sentence(),
             'date' => fake()->date('Y-m-d'),

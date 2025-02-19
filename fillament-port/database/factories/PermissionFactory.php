@@ -21,7 +21,6 @@ class PermissionFactory extends Factory
             'status' => fake()->randomElement(['Pending', 'Diterima', 'Ditolak']),
             'start_date' => fake()->date(),
             'end_date' => fake()->date(),
-            // 'santri_id' => \App\Models\Student::factory(),
         ];
     }
 }

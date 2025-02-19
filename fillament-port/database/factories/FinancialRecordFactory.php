@@ -22,7 +22,6 @@ class FinancialRecordFactory extends Factory
             'transaction_type' => fake()->randomElement(['Deposit', 'Withdrawal']),
             'amount' => fake()->randomFloat(2, 1000, 1000000),
             'transaction_date' => fake()->date(),
-            // 'accounting_id' => \App\Models\Accounting::factory(),
         ];
     }
 }

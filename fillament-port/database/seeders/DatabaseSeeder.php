@@ -2,21 +2,21 @@
 
 namespace Database\Seeders;
 
+use App\Models\News;
+use App\Models\User;
+use App\Models\Lesson;
 use App\Models\Activities;
 use App\Models\Assessment;
 use App\Models\Attachment;
 use App\Models\Attendance;
-use App\Models\Departement;
-use App\Models\FinancialRecord;
-use App\Models\KelasSantri;
-use App\Models\Lesson;
-use App\Models\News;
 use App\Models\Permission;
-use App\Models\ProgramStage;
-use App\Models\RaportSantri;
-use App\Models\User;
 use App\Models\UserFamily;
+use App\Models\Departement;
+use App\Models\KelasSantri;
+use App\Models\RaportSantri;
+use App\Models\EducationStage;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\FinancialRecord;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         KelasSantri::factory(10)->create();
         Lesson::factory(10)->create();
         Assessment::factory(10)->create();
-        ProgramStage::factory(10)->create();
+        EducationStage::factory(10)->create();
         RaportSantri::factory(10)->create();
         Departement::factory(10)->create();
         Activities::factory(10)->create();
@@ -41,6 +41,5 @@ class DatabaseSeeder extends Seeder
         Attachment::factory(10)->create();
         News::factory(10)->create();
 
-        foreac
     }
 }
