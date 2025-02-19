@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +19,7 @@ class UserFamilyFactory extends Factory
     public function definition(): array
     {
         return [
-            'santri_id' => User::all()->random()->id,
-            'no_kk' => fake()->numerify('################'),
+            'no_kk' => Str::random(20),
             'father_name' => fake()->name('male'),
             'father_job' => fake()->jobTitle(),
             'father_birth' => fake()->date(),
@@ -28,6 +28,7 @@ class UserFamilyFactory extends Factory
             'mother_job' => fake()->jobTitle(),
             'mother_birth' => fake()->date(),
             'mother_phone' => fake()->phoneNumber(),
+            // 'santri_id' => User::all()->random()->id,
         ];
     }
 }

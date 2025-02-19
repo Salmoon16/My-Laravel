@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('raport_santris', function (Blueprint $table) {
+        Schema::create('financial_records', function (Blueprint $table) {
             $table->id();
-            $table->string('santri_id')->nullable();
-            $table->string('academic_year');
-            $table->integer('overall_score');
-            $table->text('strengths')->nullable();
-            $table->text('weaknesses')->nullable();
+            $table->string('accounting_id')->nullable();
+            $table->string('category');
+            $table->text('description')->nullable();
+            $table->string('transaction_type');
+            $table->decimal('amount', 10, 2);
+            $table->date('transaction_date');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('raport_santris');
+        Schema::dropIfExists('financial_records');
     }
 };

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kelas_santris', function (Blueprint $table) {
             $table->id();
             $table->string('major');
-            $table->foreignId('mentor_id')->constrained('users')->onDelete('cascade');
+            $table->string('mentor_id')->nullable();
             $table->timestamps();
         });
     }

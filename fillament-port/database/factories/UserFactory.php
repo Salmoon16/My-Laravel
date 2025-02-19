@@ -23,26 +23,28 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->name();
+        $nameEmail = str_replace(' ', '', $name);
         return [
-           'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'no_ktp' => fake()->optional()->numerify('################'),
-            'nisn' => fake()->optional()->numerify('##########'),
+           'name' => $name,
+            'email' => $nameEmail . '@gmail.com',
+            'no_ktp' => Str::random(20),
+            'nisn' => Str::random(20),
             'gender' => fake()->randomElement(['Male', 'Female']),
             'date_of_birth' => fake()->date(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
-            'generation' => fake()->numberBetween(2010, 2025),
+            'generation' => fake()->numberBetween(1, 10),
             'entry_date' => fake()->date(),
             'graduate_date' => fake()->optional()->date(),
             'status_graduate' => fake()->randomElement(['Graduated', 'Not Graduated']),
-            // 'class_id' => ,
-            // 'department_id' => ,
-            // 'education_stage_id' => ,
             'role' => fake()->randomElement(['Student', 'Alumni']),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            // 'class_id' => ,
+            // 'department_id' => ,
+            // 'education_stage_id' => ,
         ];
     }
 

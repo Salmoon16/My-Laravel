@@ -75,12 +75,12 @@ class User extends Authenticatable
 
         static::creating(function ($model){
             Log::info("$model");
-            // if (empty($model->id)) {
-            //     do {
-            //         $id = self::generateCustomId($model->role);
-            //     } while (self::where('id', $id)->exists());
-            //     $model->id = $id;
-            // }
+            if (empty($model->id)) {
+                do {
+                    $id = self::generateCustomId($model->role);
+                } while (self::where('id', $id)->exists());
+                $model->id = $id;
+            }
         });
     }
 }

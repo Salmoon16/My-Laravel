@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('assessments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('lesson_id')->constrained('lessons')->onDelete('cascade');
+            $table->string('user_id')->nullable();
+            $table->string('lesson_id')->nullable();
             $table->integer('score');
             $table->text('evaluation')->nullable();
             $table->date('date');

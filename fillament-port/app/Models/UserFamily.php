@@ -11,7 +11,6 @@ class UserFamily extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id' ,
         'santri_id',
         'no_kk',
         'father_name',

@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('raport_santris', function (Blueprint $table) {
+        Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->string('santri_id')->nullable();
-            $table->string('academic_year');
-            $table->integer('overall_score');
-            $table->text('strengths')->nullable();
-            $table->text('weaknesses')->nullable();
+            $table->string('activity_id')->nullable();
+            $table->string('status');
+            $table->date('date');
             $table->timestamps();
-        });
+            });
     }
 
     /**
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('raport_santris');
+        Schema::dropIfExists('attendances');
     }
 };
