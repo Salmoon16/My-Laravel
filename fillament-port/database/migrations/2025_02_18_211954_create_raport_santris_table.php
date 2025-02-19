@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('santri_id')->nullable();
             $table->string('academic_year');
-            $table->integer('overall_score');
+            $table->decimal('overall_score', 5, 2);
             $table->text('strengths')->nullable();
             $table->text('weaknesses')->nullable();
             $table->timestamps();
