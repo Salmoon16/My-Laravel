@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Permission extends Model
 {
@@ -17,4 +18,8 @@ class Permission extends Model
         'start_date',
         'end_date'
     ];
+
+    public function santri_izin(){
+        return $this->belongsTo(User::class,'santri_id');
+    }
 }

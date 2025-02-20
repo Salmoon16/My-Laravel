@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Attendance extends Model
 {
@@ -16,4 +17,12 @@ class Attendance extends Model
         'status',
         'date',
     ];
+
+    public function activity(){
+        return $this->belongsTo(Activities::class,'activity_id');
+    }
+
+    public function santri(){
+        return $this->belongsTo(User::class,'santri_id') ;
+    }
 }

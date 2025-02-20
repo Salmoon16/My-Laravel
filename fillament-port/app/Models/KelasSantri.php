@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Lesson;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class KelasSantri extends Model
 {
@@ -14,4 +16,16 @@ class KelasSantri extends Model
         'major',
         'mentor_id'
     ];
+
+    public function list_santri(){
+        return  $this->hasMany(User::class,'kelas_id');
+      }
+
+      public function mentor(){
+          return $this->belongsTo(User::class,'mentor_id');
+      }
+
+      public function list_lesson(){
+          return $this->hasMany(Lesson::class,'kelas_id');
+      }
 }

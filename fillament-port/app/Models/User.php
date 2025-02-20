@@ -3,7 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Assessment;
+use App\Models\Attendance;
+use App\Models\Permission;
+use App\Models\Departement;
+use App\Models\KelasSantri;
 use Illuminate\Support\Str;
+use App\Models\AttachmentSantri;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -89,8 +95,47 @@ class User extends Authenticatable
         });
     }
 
-    public function families () {
-        return $this->hasMany(Familia::className(),
-    }
+    public function mentor_of() {
+        return $this->hasMany(KelasSantri::class,'mentor_id');
+     }
+
+     public function leader_of(){
+         return $this->hasMany(Departement::class,'leader_id');
+     }
+     public function co_leader_of(){
+         return $this->hasMany(Departement::class,'co_leader_id');
+     }
+
+     public function kelas(){
+         return $this->belongsTo(KelasSantri::class,'kelas_id');
+     }
+
+     public function department(){
+         return $this->belongsTo(Departement::class,'department_id');
+     }
+
+     public function program_stage(){
+         return $this->belongsTo(EducationStage::class,'program_stage_id');
+     }
+
+     public function list_izin(){
+         return $this->hasMany(Permission::class,'santri_id');
+     }
+
+     public function list_assesment(){
+         return $this->hasMany(Assessment::class,'santri_id');
+     }
+
+     public function list_attendence(){
+         return $this->hasMany(Attendance::class,'santri_id') ;
+     }
+
+     public function list_attachment(){
+         return $this->hasMany(AttachmentSantri::class,'santri_id') ;
+     }
+
+     public function family(){
+         return $this->hasOne(UserFamily::class,'santri_id') ;
+     }
 }
 

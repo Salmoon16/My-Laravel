@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Attendance;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Activities extends Model
 {
@@ -16,4 +17,8 @@ class Activities extends Model
         'is_event',
         'description',
     ];
+
+    public function list_attendences(){
+        return $this->hasMany(Attendance::class,'activity_id') ;
+    }
 }

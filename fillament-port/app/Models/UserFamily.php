@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class UserFamily extends Model
 {
@@ -22,4 +23,8 @@ class UserFamily extends Model
         'mother_birth',
         'mother_phone'
     ];
+
+    public function santri(){
+        return $this->belongsTo(User::class,'santri_id') ;
+    }
 }
