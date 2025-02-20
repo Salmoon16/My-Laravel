@@ -107,7 +107,7 @@ class User extends Authenticatable
      }
 
      public function kelas(){
-         return $this->belongsTo(KelasSantri::class,'kelas_id');
+         return $this->belongsTo(KelasSantri::class,'kelas_santri_id');
      }
 
      public function department(){
@@ -115,7 +115,7 @@ class User extends Authenticatable
      }
 
      public function program_stage(){
-         return $this->belongsTo(EducationStage::class,'program_stage_id');
+         return $this->belongsTo(EducationStage::class,'education_stage_id');
      }
 
      public function list_izin(){
