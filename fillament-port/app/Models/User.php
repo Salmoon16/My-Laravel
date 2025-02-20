@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-  'name',
+        'name',
         'email',
         'no_ktp',
         'nisn',
@@ -62,6 +62,11 @@ class User extends Authenticatable
         ];
     }
 
+    //biar ga auto-increment
+    public $incrementing = false;
+    //buat ngasih tau kalo tipenya string
+    protected $keyType = 'string';
+
     public static function generateCustomId($role) {
         $prefix = strtoupper(substr($role ? 'XX' : $role, 0,3));
         $prefix = str_pad($prefix, 3, 'X');
@@ -83,4 +88,9 @@ class User extends Authenticatable
             }
         });
     }
+
+    public function families () {
+        return $this->hasMany(Familia::className(),
+    }
 }
+

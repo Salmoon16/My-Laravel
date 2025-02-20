@@ -19,7 +19,7 @@ class RaportSantriFactory extends Factory
     {
         return [
             'academic_year' => fake()->year(),
-            'overall_score' => fake()->randomFloat(50, 100),
+            'overall_score' => fake()->randomFloat(2, 50, 100),
             'strengths' => fake()->paragraph(),
             'weaknesses' => fake()->paragraph(),
         ];

@@ -45,66 +45,66 @@ class DatabaseSeeder extends Seeder
 
         foreach ($dataUser as $data) {
             $data->update([
-                'kelas_santri_id'=>KelasSantri::,
-                'department_id',
-                'education_stage_id'
+                'kelas_santri_id' => KelasSantri::all()->random()->id,
+                'department_id' => Departement::all()->random()->id,
+                'education_stage_id' => EducationStage::all()->random()->id
             ]);
         }
 
         foreach ($dataKelas as $data) {
             $data->update([
-                'mentor_id'
+                'mentor_id' => User::all()->random()->id
             ]);
         }
 
         foreach ($dataLesson as $data) {
             $data->update([
-                'kelas_santri_id'
+                'kelas_santri_id' => KelasSantri::all()->random()->id
             ]);
         }
         foreach ($dataAssessment as $data) {
             $data->update([
-                'santri_id',
-                'lesson_id'
+                'santri_id' => User::all()->random()->id,
+                'lesson_id' =>Lesson::all()->random()->id
             ]);
         }
 
         foreach ($dataRaportSantri as $data) {
             $data->update([
-                'santri_id'
+                'santri_id'=> User::all()->random()->id
             ]);
         }
 
         foreach ($dataDepartement as $data) {
             $data->update([
-                'leader_id',
-                'co_leader_id'
+                'leader_id' => User::all()->random()->id,
+                'co_leader_id' => User::all()->random()->id,
             ]);
         }
 
         foreach ($dataAttendance as $data) {
             $data->update([
-                'activity_id',
-                'santri_id'
+                'activity_id'=> Activities::all()->random()->id,
+                'santri_id' => User::all()->random()->id,
             ]);
         }
 
         foreach ($dataFinancialRecord as $data) {
             $data->update([
-                'accounting_id'
+                'accounting_id' => User::all()->random()->id
             ]);
         }
 
         foreach ($dataAttachmentSantri as $data) {
             $data->update([
-                'santri_id',
-                'attachment_id',
+                'santri_id' => User::all()->random()->id,
+                'attachment_id' => Attachment::all()->random()->id,
             ]);
         }
 
         foreach ($dataNews as $data) {
             $data->update([
-                'author_id',
+                'author_id' => User::all()->random()->id,
             ]);
         }
 
