@@ -38,7 +38,7 @@ class UserFactory extends Factory
             'entry_date' => fake()->date(),
             'graduate_date' => fake()->optional()->date(),
             'status_graduate' => fake()->randomElement(['Graduated', 'Not Graduated']),
-            'role' => fake()->randomElement(['Student', 'Alumni']),
+            'role' => fake()->randomElement(['Student', 'Admin', 'Teacher']),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),

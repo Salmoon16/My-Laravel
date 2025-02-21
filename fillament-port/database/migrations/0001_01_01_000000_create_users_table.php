@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('phone', 20)->nullable();
             $table->text('address')->nullable();
             $table->integer('generation')->nullable();
-            $table->string('entry_date')->nullable();
+            $table->date('entry_date')->nullable();
             $table->string('graduate_date')->nullable();
             $table->string('status_graduate')->nullable();
             $table->unsignedBigInteger('kelas_santri_id')->nullable();

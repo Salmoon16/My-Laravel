@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $dataUser = User::factory(10)->create();
+        $dataUser = User::factory(100)->create();
         $dataFamily = UserFamily::factory(10)->create();
         $dataKelas = KelasSantri::factory(10)->create();
         $dataLesson = Lesson::factory(10)->create();
@@ -48,6 +48,12 @@ class DatabaseSeeder extends Seeder
                 'kelas_santri_id' => KelasSantri::all()->random()->id,
                 'department_id' => Departement::all()->random()->id,
                 'education_stage_id' => EducationStage::all()->random()->id
+            ]);
+        }
+
+        foreach ($dataFamily as $data) {
+            $data->update([
+                'santri_id' => User::all()->random()->id
             ]);
         }
 

@@ -2,21 +2,24 @@
 
 namespace App\Providers\Filament;
 
-use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\DisableBladeIconComponents;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
+use Filament\Widgets;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Filament\Notifications\Notification;
+use Filament\Http\Middleware\Authenticate;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
-use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Http\Middleware\DisableBladeIconComponents;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Monzer\FilamentEmailVerificationAlert\EmailVerificationAlertPlugin;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -56,6 +59,26 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+
+            ->plugins([
+                EmailVerificationAlertPlugin::make()
+                    ->color('blue')
+                    ->persistClosedState()
+                    ->closable(true)
+                    ->placeholder(true)
+                    ->renderHookName('panels::body.start')
+                    // ->renderHookScopes([ListUsers::class])
+                    ->lazy(false)
+                    ->verifyUsing(function($user) {
+                     // Custom verification logic
+                    //   $user->notify(new CustomVerificationNotification());
+
+                      Notification::make()
+                      ->title(trans('filament-email-verification-alert::messages.verification.success'))
+                      ->success()
+                      ->send();
+                    }),
             ]);
     }
 }
