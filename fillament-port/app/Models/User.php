@@ -11,7 +11,9 @@ use App\Models\KelasSantri;
 use Illuminate\Support\Str;
 use App\Models\AttachmentSantri;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
+use Filament\Tables\Columns\Layout\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -20,7 +22,20 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if (Auth::user()->role === $panel->getId()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    //biar ga auto-increment
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    //buat ngasih tau kalo tipenya string
+    protected $keyType = 'string';
     /**
      * The attributes that are mass assignable.
      *
@@ -69,10 +84,6 @@ class User extends Authenticatable
         ];
     }
 
-    //biar ga auto-increment
-    public $incrementing = false;
-    //buat ngasih tau kalo tipenya string
-    protected $keyType = 'string';
 
     public static function generateCustomId($role) {
         $prefix = strtoupper(substr($role ? 'XX' : $role, 0,3));

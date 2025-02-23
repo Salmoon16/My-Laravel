@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Enums\ThemeMode;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
@@ -26,26 +27,54 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('admin')
-            ->path('admin')
-            ->login()
-            ->registration()
-            ->passwordReset()
-            ->emailVerification()
-            ->colors([
-                'primary' => Color::Amber,
-            ])
+        ->default()
+        ->id('admin')
+        ->path('admin')
+        ->login()
+        ->registration()
+        ->passwordReset()
+        ->emailVerification()
+        ->profile()
+        ->colors([
+            'danger' => Color::Rose,
+            'gray' => Color::Gray,
+            'info' => Color::Yellow,
+            'primary' => Color::Teal,
+            'success' => Color::Green,
+            'warning' => Color::Orange,
+            // Warna tambahan
+            'slate' => Color::Slate,
+            'zinc' => Color::Zinc,
+            'neutral' => Color::Neutral,
+            'stone' => Color::Stone,
+            'red' => Color::Red,
+            'orange' => Color::Orange,
+            'yellow' => Color::Yellow,
+            'green' => Color::Green,
+            'blue' => Color::Blue,
+            'amber' => Color::Amber,
+            'lime' => Color::Lime,
+            'emerald' => Color::Emerald,
+            'teal' => Color::Teal,
+            'cyan' => Color::Cyan,
+            'sky' => Color::Sky,
+            'indigo' => Color::Indigo,
+            'violet' => Color::Violet,
+            'purple' => Color::Purple,
+            'fuchsia' => Color::Fuchsia,
+            'pink' => Color::Pink,
+            'rose' => Color::Rose,
+        ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            // ->widgets([
-            //     Widgets\AccountWidget::class,
-            //     Widgets\FilamentInfoWidget::class,
-            // ])
+            ->widgets([
+                // Widgets\AccountWidget::class,
+                // Widgets\FilamentInfoWidget::class,
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -61,6 +90,18 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
 
+            ->defaultThemeMode(ThemeMode::Dark)
+            ->spa()
+            ->sidebarWidth('15rem')
+            ->maxContentWidth('25rem')
+            ->sidebarCollapsibleOnDesktop(true)
+            ->sidebarFullyCollapsibleOnDesktop(true)
+            ->brandLogo(asset('images/1.png'))
+            ->darkModeBrandLogo(asset('images/2.png'))
+            ->favicon(asset('images/3.png'))
+            ->brandName('Salimin')
+            ->brandLogoHeight('5rem')
+
             ->plugins([
                 EmailVerificationAlertPlugin::make()
                     ->color('blue')
@@ -71,8 +112,8 @@ class AdminPanelProvider extends PanelProvider
                     // ->renderHookScopes([ListUsers::class])
                     ->lazy(false)
                     ->verifyUsing(function($user) {
-                     // Custom verification logic
-                    //   $user->notify(new CustomVerificationNotification());
+
+                    // $user->notify(new EmailVerificationPrompt);
 
                       Notification::make()
                       ->title(trans('filament-email-verification-alert::messages.verification.success'))

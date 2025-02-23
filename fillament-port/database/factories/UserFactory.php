@@ -25,6 +25,7 @@ class UserFactory extends Factory
     {
         $name = fake()->name();
         $nameEmail = str_replace(' ', '', $name);
+        $entryDate = fake()->date();
         return [
            'name' => $name,
             'email' => $nameEmail . '@gmail.com',
@@ -35,9 +36,8 @@ class UserFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
             'generation' => fake()->numberBetween(1, 10),
-            'entry_date' => fake()->date(),
-            'graduate_date' => fake()->optional()->date(),
-            'status_graduate' => fake()->randomElement(['Graduated', 'Not Graduated']),
+            'entry_date' => $entryDate,
+            'graduate_date' => fake()->dateTimeBetween($entryDate, date('Y-m-d', strtotime($entryDate . ' +' . fake()->numberBetween(2, 10) . ' years'))),            'status_graduate' => fake()->randomElement(['Graduated', 'Not Graduated']),
             'role' => fake()->randomElement(['Student', 'Admin', 'Teacher']),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
