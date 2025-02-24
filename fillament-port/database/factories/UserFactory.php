@@ -37,7 +37,7 @@ class UserFactory extends Factory
             'address' => fake()->address(),
             'generation' => fake()->numberBetween(1, 10),
             'entry_date' => $entryDate,
-            'graduate_date' => fake()->dateTimeBetween($entryDate, date('Y-m-d', strtotime($entryDate . ' +' . fake()->numberBetween(2, 10) . ' years'))),            'status_graduate' => fake()->randomElement(['Graduated', 'Not Graduated']),
+            'graduate_date' => fake()->dateTimeBetween($entryDate, date('Y-m-d', strtotime($entryDate . ' +' . fake()->numberBetween(2, 10) . ' years'))), 'status_graduate' => fake()->randomElement(['Graduated', 'Not Graduated']),
             'role' => fake()->randomElement(['Student', 'Admin', 'Teacher']),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
