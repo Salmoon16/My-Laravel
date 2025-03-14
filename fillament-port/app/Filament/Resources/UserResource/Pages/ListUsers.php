@@ -24,10 +24,12 @@ class ListUsers extends ListRecords
     public function getTabs(): array
     {
         return [
+            'All' => Tab::make(),
             'Admin' => Tab::make()->query(fn($query) => $query->where('role', 'admin')),
-            'Santri' => Tab::make()->query(fn($query) => $query->where('role', 'student')),
-            'Mentor' => Tab::make()->query(fn($query) => $query->where('role', 'teacher')),
+            'Santri' => Tab::make()->query(fn($query) => $query->where('role', 'santri')),
+            'Mentor' => Tab::make()->query(fn($query) => $query->where('role', 'mentor')),
             'Leader' => Tab::make()->query(fn($query) => $query->where('role', 'leader')),
+            'Ustadz' => Tab::make()->query(fn($query) => $query->where('role', 'ustadz')),
         ];
     }
 }

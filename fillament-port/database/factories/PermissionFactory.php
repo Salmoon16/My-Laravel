@@ -17,7 +17,7 @@ class PermissionFactory extends Factory
     public function definition(): array
     {
         return [
-            'reason' => fake()->sentence(),
+            'description' => fake()->text(),
             'status' => fake()->randomElement(['Pending', 'Diterima', 'Ditolak']),
             'start_date' => fake()->date(),
             'end_date' => fake()->date(),

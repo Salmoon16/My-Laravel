@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->text('attachment_name');
-            $table->text('attachment_path');
+            $table->text('attachment_name')->nullable();
+            $table->text('attachment_path')->nullable();
             $table->timestamps();
         });
     }

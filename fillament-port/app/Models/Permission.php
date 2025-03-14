@@ -13,7 +13,7 @@ class Permission extends Model
 
     protected $fillable = [
         'santri_id',
-        'reason',
+        'description',
         'status',
         'start_date',
         'end_date'

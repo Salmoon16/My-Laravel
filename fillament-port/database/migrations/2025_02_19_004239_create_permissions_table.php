@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->string('santri_id')->nullable();
-            $table->text('reason');
-            $table->string('status');
-            $table->date('start_date');
+            $table->text('description')->nullable();;
+            $table->string('status')->nullable();
+            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->timestamps();
         });

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('activity_name');
-            $table->date('activity_date');
-            $table->boolean('is_event');
+            $table->string('activity_name')->nullable();
+            $table->date('activity_date')->nullable();
+            $table->boolean('is_event')->default(false);
             $table->text('description')->nullable();
             $table->timestamps();
         });

@@ -27,18 +27,19 @@ class UserFactory extends Factory
         $nameEmail = str_replace(' ', '', $name);
         $entryDate = fake()->date();
         return [
-           'name' => $name,
+            'name' => $name,
             'email' => $nameEmail . '@gmail.com',
             'no_ktp' => Str::random(20),
             'nisn' => Str::random(20),
-            'gender' => fake()->randomElement(['Male', 'Female']),
+            'gender' => fake()->randomElement(['Laki-Laki', 'Perempuan']),
             'date_of_birth' => fake()->date(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
             'generation' => fake()->numberBetween(1, 10),
             'entry_date' => $entryDate,
-            'graduate_date' => fake()->dateTimeBetween($entryDate, date('Y-m-d', strtotime($entryDate . ' +' . fake()->numberBetween(2, 10) . ' years'))), 'status_graduate' => fake()->randomElement(['Graduated', 'Not Graduated']),
-            'role' => fake()->randomElement(['Student', 'Admin', 'Teacher']),
+            'graduate_date' => fake()->dateTimeBetween($entryDate, date('Y-m-d', strtotime($entryDate . ' +' . fake()->numberBetween(2, 10) . ' years'))),
+            'status_graduate' => fake()->randomElement(['Lulus', 'Masa Belajar', 'DropOut', 'Tidak Lulus', 'Keluar']),
+            'role' => fake()->randomElement(['Santri', 'Admin', 'Mentor', 'Ustadz', 'Leader']),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
@@ -50,7 +51,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Assessment;
 use App\Models\Attendance;
 use App\Models\Permission;
+use App\Models\UserFamily;
 use App\Models\Departement;
 use App\Models\KelasSantri;
 use Illuminate\Support\Str;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
 use Filament\Tables\Columns\Layout\Panel;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -138,16 +140,20 @@ class User extends Authenticatable
          return $this->hasMany(Assessment::class,'santri_id');
      }
 
-     public function list_attendence(){
-         return $this->hasMany(Attendance::class,'santri_id') ;
+        public function list_attendence(){
+        return $this->hasMany(Attendance::class,'santri_id') ;
+    }
+
+    public function list_attachment(){
+        return $this->hasMany(AttachmentSantri::class,'santri_id') ;
      }
 
-     public function list_attachment(){
-         return $this->hasMany(AttachmentSantri::class,'santri_id') ;
-     }
-
-     public function family(){
-         return $this->hasOne(UserFamily::class,'santri_id') ;
-     }
+     public function family(): MorphOne
+    {
+        return $this->morphOne(UserFamily::class, 'familiable');
+    }
+    //  public function familyy(){
+    //      return $this->hasOn(UserFamily::class,'santri_id') ;
+    //  }
 }
 

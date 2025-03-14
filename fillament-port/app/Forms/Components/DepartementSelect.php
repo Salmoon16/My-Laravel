@@ -14,7 +14,7 @@ class DepartementSelect extends Select
 public static function make(string $name): static
 {
     return parent::make($name)
-        ->label('Amanah Deaprtment')
+        ->label('Amanah Departement')
         ->prefixIcon('heroicon-o-briefcase')
         ->prefixIconColor('primary')
         ->searchable()

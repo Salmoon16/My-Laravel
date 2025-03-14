@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class UserFamily extends Model
@@ -12,7 +14,6 @@ class UserFamily extends Model
     use HasFactory;
 
     protected $fillable = [
-        'santri_id',
         'no_kk',
         'father_name',
         'father_job',
@@ -21,10 +22,21 @@ class UserFamily extends Model
         'mother_name',
         'mother_job',
         'mother_birth',
-        'mother_phone'
+        'mother_phone',
+        'familiable_id',
+        'familiable_type'
     ];
 
-    public function santri(){
-        return $this->belongsTo(User::class,'santri_id') ;
+    public function familiable(): MorphTo
+    {
+        return $this->morphTo();
     }
+
+    // public function santri(){
+    //     return $this->belongsTo(User::class,'santri_id') ;
+    // }
+
+    // public function mentor(){
+    //     return $this->belongsTo(Teacher::class,'mentor_id') ;
+    // }
 }

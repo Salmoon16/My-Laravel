@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('santri_id')->nullable();
             $table->unsignedBigInteger('lesson_id')->nullable();
-            $table->integer('score');
+            $table->integer('score')->nullable();
             $table->text('evaluation')->nullable();
-            $table->date('date');
+            $table->dateTime('date')->nullable();
             $table->timestamps();
         });
     }

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('santri_id')->nullable();
             $table->unsignedBigInteger('activity_id')->nullable();
-            $table->string('status');
-            $table->date('date');
+            $table->string('status')->nullable();
+            $table->date('date')->nullable();
             $table->timestamps();
             });
     }

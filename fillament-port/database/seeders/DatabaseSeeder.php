@@ -2,23 +2,22 @@
 
 namespace Database\Seeders;
 
-use App\Models\News;
 use App\Models\User;
 use App\Models\Lesson;
 use App\Models\Activities;
 use App\Models\Assessment;
 use App\Models\Attachment;
-use App\Models\AttachmentSantri;
 use App\Models\Attendance;
 use App\Models\Permission;
 use App\Models\UserFamily;
 use App\Models\Departement;
 use App\Models\KelasSantri;
-use App\Models\RaportSantri;
 use App\Models\EducationStage;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\FinancialRecord;
 use Illuminate\Database\Seeder;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\AttachmentSantri;
+use App\Models\Teacher;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,21 +26,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory()->create([
+            'name' => 'Salman',
+            'email' => 'salman16@gmail.com',
+            'role' => 'Admin',
+            'password' => Hash::make('123')
+        ]);
+
         $dataUser = User::factory(100)->create();
-        $dataFamily = UserFamily::factory(10)->create();
+        $dataTeacher = Teacher::factory(100)->create();
+        // $dataFamily = UserFamily::factory(10)->create();
         $dataKelas = KelasSantri::factory(10)->create();
         $dataLesson = Lesson::factory(10)->create();
         $dataAssessment = Assessment::factory(10)->create();
         $dataEducationStage = EducationStage::factory(10)->create();
-        $dataRaportSantri = RaportSantri::factory(10)->create();
         $dataDepartement = Departement::factory(10)->create();
         $dataActivities = Activities::factory(10)->create();
         $dataAttendance = Attendance::factory(10)->create();
         $dataPermission = Permission::factory(10)->create();
-        $dataFinancialRecord = FinancialRecord::factory(10)->create();
         $dataAttachment = Attachment::factory(10)->create();
         $dataAttachmentSantri = AttachmentSantri::factory(10)->create();
-        $dataNews = News::factory(10)->create();
+
+        foreach (range(1, 100) as $i) {
+            UserFamily::factory()->create([
+                'familiable_id' => $i % 2 == 0 ? User::all()->random()->id : Teacher::all()->random()->id,
+                'familiable_type' => $i % 2 == 0 ? User::class : Teacher::class,
+            ]);
+        }
 
         foreach ($dataUser as $data) {
             $data->update([
@@ -51,15 +62,19 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        foreach ($dataFamily as $data) {
+        foreach ($dataTeacher as $data) {
             $data->update([
-                'santri_id' => User::all()->random()->id
+                'kelas_santri_id' => KelasSantri::all()->random()->id,
             ]);
         }
 
+        // foreach ($dataFamily as $data) {
+        //     $data->update([]);
+        // }
+
         foreach ($dataKelas as $data) {
             $data->update([
-                'mentor_id' => User::all()->random()->id
+                'mentor_id' => Teacher::all()->random()->id
             ]);
         }
 
@@ -71,13 +86,7 @@ class DatabaseSeeder extends Seeder
         foreach ($dataAssessment as $data) {
             $data->update([
                 'santri_id' => User::all()->random()->id,
-                'lesson_id' =>Lesson::all()->random()->id
-            ]);
-        }
-
-        foreach ($dataRaportSantri as $data) {
-            $data->update([
-                'santri_id'=> User::all()->random()->id
+                'lesson_id' => Lesson::all()->random()->id
             ]);
         }
 
@@ -90,14 +99,8 @@ class DatabaseSeeder extends Seeder
 
         foreach ($dataAttendance as $data) {
             $data->update([
-                'activity_id'=> Activities::all()->random()->id,
+                'activity_id' => Activities::all()->random()->id,
                 'santri_id' => User::all()->random()->id,
-            ]);
-        }
-
-        foreach ($dataFinancialRecord as $data) {
-            $data->update([
-                'accounting_id' => User::all()->random()->id
             ]);
         }
 
@@ -107,12 +110,5 @@ class DatabaseSeeder extends Seeder
                 'attachment_id' => Attachment::all()->random()->id,
             ]);
         }
-
-        foreach ($dataNews as $data) {
-            $data->update([
-                'author_id' => User::all()->random()->id,
-            ]);
-        }
-
     }
 }

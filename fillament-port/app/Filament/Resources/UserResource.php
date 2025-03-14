@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\Departement;
 use App\Models\KelasSantri;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
 use Filament\Tables\Filters\Filter;
@@ -18,29 +19,37 @@ use App\Forms\Components\KelasSelect;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Section;
+use Filament\Support\Enums\FontWeight;
 use Filament\Forms\Components\Textarea;
+use Filament\Infolists\Components\Tabs;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\Split;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Forms\Components\DepartementSelect;
+use Filament\Infolists\Components\Fieldset;
 use Filament\Forms\Components\ToggleButtons;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\UserResource\Pages;
 use App\Forms\Components\EducationStageSelect;
+use Filament\Infolists\Components\Group as Grup;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists\Components\Section as Sectiun;
 use App\Filament\Resources\UserResource\RelationManagers;
+use Filament\Infolists\Components\TextEntry\TextEntrySize;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationLabel = 'Santri';
-    protected static ?string $navigationGroup = 'Santri Management';
+    protected static ?string $navigationGroup = 'Pondok Management';
     protected static ?string $slug = 'santri';
 
     public static function form(Form $form): Form
@@ -66,17 +75,17 @@ class UserResource extends Resource
                                             ->columnSpanFull()
                                             ->grouped()
                                             ->options([
-                                                'male' => 'Laki-laki',
-                                                'female' => 'Perempuan',
+                                                'Laki-Laki' => 'Laki-laki',
+                                                'Perempuan' => 'Perempuan',
                                             ])
                                             ->icons([
-                                                'male' => 'heroicon-o-user',
-                                                'female' => 'heroicon-o-user-circle',
+                                                'Laki-Laki' => 'heroicon-o-user',
+                                                'Perempuan' => 'heroicon-o-user-circle',
                                             ])
 
                                             ->colors([
-                                                'male' => 'primary',
-                                                'female' => 'pink',
+                                                'Laki-Laki' => 'primary',
+                                                'Perempuan' => 'pink',
                                             ]),
 
                                         TextInput::make('name')
@@ -140,6 +149,7 @@ class UserResource extends Resource
                                                     'Santri' => 'Santri',
                                                     'Mentor' => 'Mentor',
                                                     'Leader' => 'Leader',
+                                                    'Ustadz' => 'Ustadz',
                                                 ])
                                                 ->prefixIcon('heroicon-o-tag')
                                                 ->prefixIconColor('primary'),
@@ -172,8 +182,10 @@ class UserResource extends Resource
                                                 ->native(false)
                                                 ->options([
                                                     'Lulus' => 'Lulus',
-                                                    'Belum Lulus' => 'Belum Lulus',
-                                                    'Dropout' => 'Dropout',
+                                                    'Masa Belajar' => 'Masa Belajar',
+                                                    'DropOut' => 'DropOut',
+                                                    'Tidak Lulus' => 'Tidak Lulus',
+                                                    'Keluar' => 'Keluar',
                                                 ])
                                                 ->prefixIcon('heroicon-o-academic-cap')
                                                 ->prefixIconColor('primary'),
@@ -207,7 +219,7 @@ class UserResource extends Resource
                         ->columns(4)
                         ->schema([
                             Grid::make()
-                                ->relationship('family')
+                                ->relationship('familiable')
                                 ->schema([
                                     Section::make()
                                         ->description("Santri's Family Information")
@@ -305,9 +317,10 @@ class UserResource extends Resource
                     }),
                 TextColumn::make('role')
                     ->badge()
+                    ->icon('heroicon-o-shield-check')
                     ->color(function ($record) {
                         $role = $record->role;
-                        if ($role == 'admin') {
+                        if ($role == 'Admin') {
                             return 'success';
                         } else {
                             return 'warning';
@@ -375,6 +388,12 @@ class UserResource extends Resource
                         return $query->orderBy('generation', $direction);
                     }),
 
+                TextColumn::make('status_graduate')
+                    ->searchable()
+                    ->label("Status Kelulusan")
+                    ->icon('heroicon-o-academic-cap')
+                    ->badge(),
+
                 TextColumn::make('created_at')
                     ->date('Y-m-d')
                     ->sortable()
@@ -398,9 +417,11 @@ class UserResource extends Resource
                 SelectFilter::make('role')
                     ->label("Role")
                     ->options([
-                        'admin' => 'admin',
-                        'teacher' => 'teacher',
-                        'student' => 'student',
+                        'admin' => 'Admin',
+                        'mentor' => 'Mentor',
+                        'santri' => 'Santri',
+                        'leader' => 'Leader',
+                        'ustadz' => 'Ustadz',
                     ]),
                 SelectFilter::make('department_id')
                     ->label("Department")
@@ -470,6 +491,198 @@ class UserResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Tabs::make('Tabs')
+                    ->columnSpanFull()
+                    ->tabs([
+                        Tabs\Tab::make('Biodata Santri')
+                            ->icon('heroicon-m-user')
+                            ->schema([
+                                Fieldset::make('Detail Santri')
+                                    ->schema([
+                                        TextEntry::make('name')
+                                            ->label('Nama Lengkap')
+                                            ->icon('heroicon-o-user')
+                                            ->iconColor('primary')
+                                            ->weight(FontWeight::Bold)
+                                            ->size(TextEntrySize::Medium)
+                                            ->copyable(),
+                                        TextEntry::make('email')
+                                            ->label('Email')
+                                            ->icon('heroicon-o-envelope')
+                                            ->iconColor('primary')
+                                            ->copyable(),
+                                        TextEntry::make('phone')
+                                            ->label('Nomor Telepon')
+                                            ->icon('heroicon-o-phone')
+                                            ->iconColor('primary')
+                                            ->copyable(),
+                                        TextEntry::make('address')
+                                            ->label('Alamat')
+                                            ->icon('heroicon-o-home')
+                                            ->iconColor('primary')
+                                            ->limit(50)
+                                            ->tooltip(
+                                                fn(TextEntry $component): ?string =>
+                                                $component->getState() && strlen($component->getState()) > 50 ? $component->getState() : null
+                                            ),
+                                        TextEntry::make('date_of_birth')
+                                            ->label('Tanggal Lahir')
+                                            ->date()
+                                            ->icon('heroicon-o-calendar')
+                                            ->iconColor('primary'),
+                                        TextEntry::make('gender')
+                                            ->label('Jenis Kelamin')
+                                            ->icon('heroicon-o-user-circle')
+                                            ->iconColor('primary')
+                                            ->badge()
+                                            ->color(fn(string $state): string => match ($state) {
+                                                'default' => 'gray',
+                                                'Laki-Laki' => 'sky',
+                                                'Perempuan' => 'pink',
+                                            })
+                                    ])
+                                    ->columns(2),
+                            ]),
+                        Tabs\Tab::make('Biodata Keluarga')
+                            ->icon('heroicon-m-users')
+                            ->schema([
+                                Fieldset::make('Detail Keluarga')
+                                    ->schema([
+
+
+                                        Grup::make([
+                                            TextEntry::make('family.no_kk')
+                                                ->label('Nomor Kartu Keluarga')
+                                                ->icon('heroicon-o-identification')
+                                                ->weight(FontWeight::Thin)
+                                                ->size(TextEntrySize::ExtraSmall)
+                                                ->columnSpan(1)
+                                                ->iconColor('primary'),
+                                        ]),
+                                        Grup::make([
+                                            TextEntry::make('no_ktp')
+                                                ->numeric()
+                                                ->columnSpan(1)
+                                                ->weight(FontWeight::Bold)
+                                                ->size(TextEntrySize::Large)
+                                                ->label('NIK')
+                                                ->icon('heroicon-o-credit-card')
+                                                ->iconColor('primary'),
+                                        ]),
+                                    ]),
+                                Fieldset::make("Data Ayah")
+                                    ->schema([
+                                        TextEntry::make('family.father_name')
+                                            ->label('Nama Ayah')
+                                            ->weight(FontWeight::Bold)
+                                            ->size(TextEntrySize::Large)
+                                            ->icon('heroicon-o-user')
+                                            ->iconColor('primary'),
+                                        TextEntry::make('family.father_job')
+                                            ->label("Father's Job")
+                                            ->weight(FontWeight::Bold)
+                                            ->size(TextEntry\TextEntrySize::Large)
+                                            ->icon('heroicon-o-briefcase')
+                                            ->iconColor('primary'),
+                                        TextEntry::make('family.father_birth')
+                                            ->label("Father's Birth Date")
+                                            ->weight(FontWeight::Bold)
+                                            ->size(TextEntry\TextEntrySize::Large)
+                                            ->date()
+                                            ->icon('heroicon-o-calendar')
+                                            ->iconColor('primary'),
+                                        TextEntry::make('family.father_phone')
+                                            ->label("Father's Phone")
+                                            ->weight(FontWeight::Bold)
+                                            ->size(TextEntry\TextEntrySize::Large)
+                                            ->icon('heroicon-o-phone')
+                                            ->iconColor('primary'),
+                                    ]),
+                                Fieldset::make('Data Ibu')
+                                    ->schema([
+                                        TextEntry::make('family.mother_name')
+                                            ->label('Nama Ibu')
+                                            ->weight(FontWeight::Bold)
+                                            ->size(TextEntry\TextEntrySize::Large)
+                                            ->icon('heroicon-o-user')
+                                            ->iconColor('primary'),
+                                        TextEntry::make('family.mother_job')
+                                            ->label("Mother's Job")
+                                            ->weight(FontWeight::Bold)
+                                            ->size(TextEntry\TextEntrySize::Large)
+                                            ->icon('heroicon-o-briefcase')
+                                            ->iconColor('primary'),
+                                        TextEntry::make('family.mother_birth')
+                                            ->label("Mother's Birth Date")
+                                            ->weight(FontWeight::Bold)
+                                            ->size(TextEntry\TextEntrySize::Large)
+                                            ->date()
+                                            ->icon('heroicon-o-calendar')
+                                            ->iconColor('primary'),
+                                        TextEntry::make('family.mother_phone')
+                                            ->label("Mother's Phone")
+                                            ->weight(FontWeight::Bold)
+                                            ->size(TextEntry\TextEntrySize::Large)
+                                            ->icon('heroicon-o-phone')
+                                            ->iconColor('primary'),
+                                    ]),
+                            ]),
+                        Tabs\Tab::make('Data Pendidikan')
+                            ->icon('heroicon-m-book-open')
+                            ->schema([
+                                Split::make([
+                                    Sectiun::make([
+                                        TextEntry::make('nisn')
+                                            ->numeric()
+                                            ->weight(FontWeight::ExtraBold)
+                                            ->label('NISN')
+                                            ->icon('heroicon-o-credit-card')
+                                            ->iconColor('primary'),
+                                        TextEntry::make('role')
+                                            ->weight(FontWeight::ExtraBold)
+                                            ->label('Role')
+                                            ->badge()
+                                            ->color(fn(string $state): string => match ($state) {
+                                                'default' => 'orange',
+                                                'Admin' => 'success',
+                                                'Mentor' => 'sky',
+                                                'Santri' => 'info',
+                                                'Leader' => 'zinc',
+                                                'Ustadz' => 'fuchsia',
+                                            }),
+                                        TextEntry::make('generation')
+                                            ->weight(FontWeight::ExtraBold)
+                                            ->label('Angkatan')
+                                            ->icon('heroicon-o-academic-cap')
+                                            ->iconColor('primary'),
+                                        TextEntry::make('status_graduate')
+                                            ->weight(FontWeight::ExtraBold)
+                                            ->label('Status Pendidikan')
+                                            ->icon('heroicon-o-academic-cap')
+                                            ->iconColor('primary'),
+                                    ])->columnspan('3'),
+                                    Sectiun::make([
+                                        TextEntry::make('entry_date')
+                                            ->dateTime()
+                                            ->label('Tanggal Masuk')
+                                            ->icon('heroicon-o-calendar-date-range')
+                                            ->iconColor('primary'),
+                                        TextEntry::make('graduate_date')
+                                            ->dateTime()
+                                            ->label('Tanggal Keluar')
+                                            ->icon('heroicon-o-calendar-days')
+                                            ->iconColor('primary'),
+                                    ])->grow(false),
+                                ])->from('md')
+                            ])
+                    ])
             ]);
     }
 
